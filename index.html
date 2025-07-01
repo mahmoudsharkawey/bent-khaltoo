@@ -120,15 +120,36 @@
     const openBtn = document.getElementById("openBtn");
     const messageBox = document.getElementById("messageBox");
 
+    function typeMessage(text, element) {
+      element.textContent = '';
+      let index = 0;
+      
+      return new Promise((resolve) => {
+        function type() {
+          if (index < text.length) {
+            element.textContent += text[index];
+            index++;
+            setTimeout(type, 100); // يمكنك تغيير الرقم 100 لتغيير سرعة الكتابة
+          } else {
+            setTimeout(resolve, 1000);
+          }
+        }
+        type();
+      });
+    }
+
+    async function showMessages() {
+      let i = 0;
+      while (true) {
+        await typeMessage(messages[i], loveText);
+        i = (i + 1) % messages.length;
+      }
+    }
+
     openBtn.addEventListener("click", () => {
       openBtn.style.display = "none";
       messageBox.style.display = "block";
-      let i = 0;
-      loveText.textContent = messages[i];
-      setInterval(() => {
-        i = (i + 1) % messages.length;
-        loveText.textContent = messages[i];
-      }, 3000);
+      showMessages();
     });
 
     const runawayBtn = document.getElementById("runawayBtn");
