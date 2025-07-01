@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رسالة حب لمريم 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ffe6eb, #fff);
+      font-family: 'Tahoma', sans-serif;
+      overflow: hidden;
+      text-align: center;
+    }
+    h1 {
+      color: #d6336c;
+      font-size: 2.5rem;
+      margin-top: 50px;
+    }
+    #messageBox {
+      display: none;
+      padding: 20px;
+      font-size: 1.5rem;
+      color: #c9184a;
+      animation: fadeIn 2s forwards;
+    }
+    #openBtn {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 30px;
+    }
+    #openBtn:hover {
+      background-color: #e6004c;
+    }
+    .heart {
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      position: absolute;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+    @keyframes float {
+      0% {
+        bottom: 0;
+        left: calc(50% - 10px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100vh;
+        left: calc(50% + 100px * var(--direction));
+        opacity: 0;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #runawayBtn {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ff99c8;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <h1>يا بنت خالتوو مريم 💕</h1>
+  <button id="openBtn">افتح الرسالة ✉️</button>
+
+  <div id="messageBox">
+    <p id="loveText"></p>
+  </div>
+
+  <button id="runawayBtn">لو بتحبيني اضغطي هنا 😜</button>
+
+  <script>
+    const messages = [
+      "أنا يمكن مش شاعر، بس بحبك بكل اللغات ❤️",
+      "يا مريم، قلبي عامل زي الدراي كلين... دايمًا بينضف من الهم لما أفتكرك 😂",
+      "كل أما بشوفك، الدنيا بتضحكلي... وأما بتضحكي، الدنيا كلها بتقف تبصلك 😍",
+      "يا بنت خالتوو، قلبي بيعمل رفرفة زي الفراخ قبل العيد كل ما أشوفك 🐔💓",
+      "في حاجات متتقالش... بس أنا بحبك وخلصنا 💖"
+    ];
+
+    const loveText = document.getElementById("loveText");
+    const openBtn = document.getElementById("openBtn");
+    const messageBox = document.getElementById("messageBox");
+
+    openBtn.addEventListener("click", () => {
+      openBtn.style.display = "none";
+      messageBox.style.display = "block";
+      let i = 0;
+      loveText.textContent = messages[i];
+      setInterval(() => {
+        i = (i + 1) % messages.length;
+        loveText.textContent = messages[i];
+      }, 3000);
+    });
+
+    const runawayBtn = document.getElementById("runawayBtn");
+    runawayBtn.addEventListener("mouseenter", () => {
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 100);
+      runawayBtn.style.left = `${x}px`;
+      runawayBtn.style.top = `${y}px`;
+    });
+
+    // generate hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.setProperty('--direction', Math.random() > 0.5 ? 1 : -1);
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+  </script>
+</body>
+</html>
