@@ -153,11 +153,30 @@
     });
 
     const runawayBtn = document.getElementById("runawayBtn");
-    runawayBtn.addEventListener("mouseenter", () => {
-      const x = Math.random() * (window.innerWidth - 150);
-      const y = Math.random() * (window.innerHeight - 100);
+    function moveRunawayBtn() {
+      const openBtnRect = openBtn.getBoundingClientRect();
+      const messageBoxRect = messageBox.getBoundingClientRect();
+      const btnWidth = runawayBtn.offsetWidth;
+      const btnHeight = runawayBtn.offsetHeight;
+      let x, y;
+      let tries = 0;
+      do {
+        x = Math.random() * (window.innerWidth - btnWidth);
+        y = Math.random() * (window.innerHeight - btnHeight);
+        tries++;
+      } while (
+        ((x + btnWidth > openBtnRect.left && x < openBtnRect.right && y + btnHeight > openBtnRect.top && y < openBtnRect.bottom) ||
+        (x + btnWidth > messageBoxRect.left && x < messageBoxRect.right && y + btnHeight > messageBoxRect.top && y < messageBoxRect.bottom))
+        && tries < 20
+      );
+      runawayBtn.style.transition = "top 0.08s, left 0.08s";
       runawayBtn.style.left = `${x}px`;
       runawayBtn.style.top = `${y}px`;
+    }
+    runawayBtn.addEventListener("mouseenter", moveRunawayBtn);
+    runawayBtn.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      moveRunawayBtn();
     });
 
     // generate hearts
