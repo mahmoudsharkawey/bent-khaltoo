@@ -158,11 +158,12 @@
       const messageBoxRect = messageBox.getBoundingClientRect();
       const btnWidth = runawayBtn.offsetWidth;
       const btnHeight = runawayBtn.offsetHeight;
+      const margin = 5; // هامش بسيط من الحواف
       let x, y;
       let tries = 0;
       do {
-        x = Math.random() * (window.innerWidth - btnWidth);
-        y = Math.random() * (window.innerHeight - btnHeight);
+        x = Math.random() * (window.innerWidth - btnWidth - margin * 2) + margin;
+        y = Math.random() * (window.innerHeight - btnHeight - margin * 2) + margin;
         tries++;
       } while (
         ((x + btnWidth > openBtnRect.left && x < openBtnRect.right && y + btnHeight > openBtnRect.top && y < openBtnRect.bottom) ||
